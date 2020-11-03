@@ -51,14 +51,17 @@ const Caesar = (() => {
   // Default hliðrun, uppfært af "shift"
   let shift = 3;
 
-  inputText.oninput = showInput;
-
-  function showInput(b) {
-    resultShow.textContent = `${b}`;
-  }
-
   function init(el) {
     // Setja event handlera á viðeigandi element
+    let inputAlphabet = document.querySelector('.alphabet');
+    let inputRadio = document.querySelector('.type');
+    let inputText = document.querySelector('input.text input[]');
+    let resultShow = document.getElementById('.result');
+
+    showInput = inputText.oninput;
+
+    resultShow.textContent = `${showInput}`;
+
   }
 
   return {
@@ -68,11 +71,6 @@ const Caesar = (() => {
 
 document.addEventListener('DOMContentLoaded', () => {
   const ceasarForm = document.querySelector('.ceasar');
-  let inputAlphabet = document.querySelector('.alphabet');
-  const inputRadio = document.querySelector('.type');
-  let inputText = document.getElementById('input.text input[]');
-  let resultShow = document.getElementById('.result');
-
 
   Caesar.init(ceasarForm);
 });
