@@ -13,7 +13,7 @@
  * @param {string} alphabet Stafróf sem afkóða á út frá
  * @returns {string} Upprunalegi strengurinn hliðraður um n til hægri
  */
-function encode(str, n, alphabet = '${alphabet}') {
+function encode(str, n, alphabet = `${alphabet}`) {
   const upper = str.toLocaleUpperCase();
 
   let result = '';
@@ -31,7 +31,7 @@ function encode(str, n, alphabet = '${alphabet}') {
  * @param {string} alphabet Stafróf sem afkóða á út frá
  * @returns {string} Upprunalegi strengurinn hliðraður um n til vinstri
  */
-function decode(str, n, alphabet = '') {
+function decode(str, n, alphabet = `${alphabet}`) {
   return str
   .toLocaleUpperCase()
   .split('')
@@ -51,6 +51,12 @@ const Caesar = (() => {
   // Default hliðrun, uppfært af "shift"
   let shift = 3;
 
+  inputText.oninput = showInput;
+
+  function showInput(b) {
+    resultShow.textContent = `${b}`;
+  }
+
   function init(el) {
     // Setja event handlera á viðeigandi element
   }
@@ -63,9 +69,9 @@ const Caesar = (() => {
 document.addEventListener('DOMContentLoaded', () => {
   const ceasarForm = document.querySelector('.ceasar');
   let inputAlphabet = document.querySelector('.alphabet');
-  const inputRadio = document.querySelector('.radio');
-  let inputText = document.getElementById('input');
-  console.log(inputText, inputAlphabet, inputRadio);
+  const inputRadio = document.querySelector('.type');
+  let inputText = document.getElementById('input.text input[]');
+  let resultShow = document.getElementById('.result');
 
 
   Caesar.init(ceasarForm);
