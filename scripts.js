@@ -13,8 +13,14 @@
  * @param {string} alphabet Stafróf sem afkóða á út frá
  * @returns {string} Upprunalegi strengurinn hliðraður um n til hægri
  */
-function encode(str, n, alphabet = '') {
-  return '';
+function encode(str, n, alphabet = '${alphabet}') {
+  const upper = str.toLocaleUpperCase();
+
+  let result = '';
+  for (let i = 0; i < str.length; i++) {
+    result += alphabet[(alphabet.indexOf(upper[i]) + n) % alphabet.length];
+  }
+  return result;
 }
 
 /**
@@ -26,7 +32,13 @@ function encode(str, n, alphabet = '') {
  * @returns {string} Upprunalegi strengurinn hliðraður um n til vinstri
  */
 function decode(str, n, alphabet = '') {
-  return '';
+  return str
+  .toLocaleUpperCase()
+  .split('')
+  .map(s => alphabet.indexOf(s) - n) // hliðruð staðsetning stafs
+  .map(i => i < 0 ? alphabet.length + i : i) // ef i verður neikvætt, förum aftast í stafróf
+  .map(i => alphabet[i])
+  .join('');
 }
 
 const Caesar = (() => {
@@ -50,6 +62,11 @@ const Caesar = (() => {
 
 document.addEventListener('DOMContentLoaded', () => {
   const ceasarForm = document.querySelector('.ceasar');
+  let inputAlphabet = document.querySelector('.alphabet');
+  const inputRadio = document.querySelector('.radio');
+  let inputText = document.getElementById('input');
+  console.log(inputText, inputAlphabet, inputRadio);
+
 
   Caesar.init(ceasarForm);
 });
